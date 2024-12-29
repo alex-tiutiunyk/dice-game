@@ -1,95 +1,113 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import React from 'react';
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Slider,
+  Typography,
+} from '@mui/material';
+import styles from './page.module.css';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [result, setResult] = React.useState<number>(0);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const initialRangeValue = 20;
+  const marks = [
+    { value: 1 },
+    { value: 20 },
+    { value: 40 },
+    { value: 60 },
+    { value: 80 },
+    { value: 100 },
+  ];
+  const [range, setRange] = React.useState<number>(initialRangeValue);
+  const handleChange = (_: Event, newValue: number | number[]) => {
+    setRange(newValue as number);
+  };
+  function valuetext(value: number) {
+    return `${value}°C`;
+  }
+
+  const startPlay = (): void => {
+    const newNumber: number = Math.floor(Math.random() * 100 + 1);
+
+    setResult(newNumber);
+  };
+
+  return (
+    <Container maxWidth={false}>
+      <Container maxWidth='sm' disableGutters>
+        <Box
+          textAlign='center'
+          sx={{
+            width: 300,
+            paddingTop: '37px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginBottom: 7,
+          }}
+        >
+          <Box
+            sx={{
+              height: 200,
+              lineHeight: '200px',
+              fontSize: 96,
+              backgroundColor: 'rgba(var(--stb-black) / 0.04)',
+              borderRadius: 1,
+              marginBottom: 3,
+            }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            {result}
+          </Box>
+          <FormControl sx={{ marginBottom: 5 }}>
+            <RadioGroup row name='threshold'>
+              <FormControlLabel
+                value='under'
+                control={<Radio color='secondary' />}
+                label='Under'
+                labelPlacement='start'
+              />
+              <FormControlLabel
+                value='over'
+                control={<Radio color='secondary' />}
+                label='Over'
+                labelPlacement='start'
+              />
+            </RadioGroup>
+          </FormControl>
+          <Box sx={{ marginBottom: 3 }}>
+            <Slider
+              value={range}
+              min={1}
+              max={100}
+              onChange={handleChange}
+              aria-label='Always visible'
+              defaultValue={initialRangeValue}
+              getAriaValueText={valuetext}
+              marks={marks}
+              color='secondary'
+              valueLabelDisplay='on'
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Typography variant='body2' onClick={() => setRange(1)} sx={{ cursor: 'pointer' }}>
+                0
+              </Typography>
+              <Typography variant='body2' onClick={() => setRange(100)} sx={{ cursor: 'pointer' }}>
+                100
+              </Typography>
+            </Box>
+          </Box>
+          <Button onClick={startPlay} variant='contained' color='secondary' size='large' fullWidth>
+            Play
+          </Button>
+        </Box>
+      </Container>
+    </Container>
   );
 }
