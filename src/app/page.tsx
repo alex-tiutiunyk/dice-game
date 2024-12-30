@@ -4,6 +4,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { IPlayData } from '@/interfaces';
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -12,20 +13,17 @@ import {
   Radio,
   RadioGroup,
   Slider,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from '@mui/material';
-import styles from './page.module.css';
+import ResultsTable from '@/components/ResultsTable/ResultsTable';
 
 export default function Home() {
   const [result, setResult] = React.useState<number>(0);
   const [radio, setRadio] = React.useState<string>('under');
   const [data, setData] = React.useState<IPlayData[]>([]);
+  const [isWon, setIsWon] = React.useState<boolean>(false);
+  const [isLost, setIsLost] = React.useState<boolean>(false);
+  const [lostState, setLostState] = React.useState<'higher' | 'lower' | null>(null);
 
   const initialRangeValue = 20;
   const [range, setRange] = React.useState<number>(initialRangeValue);
@@ -53,8 +51,14 @@ export default function Home() {
 
     if ((radio === 'under' && newNumber < range) || (radio === 'over' && newNumber > range)) {
       isOk = true;
+      setIsWon(true);
+      setIsLost(false);
     } else {
       isOk = false;
+      setIsLost(true);
+      setIsWon(false);
+      if (radio === 'under') setLostState('higher');
+      if (radio === 'over') setLostState('lower');
     }
 
     const newElement: IPlayData = {
@@ -83,12 +87,24 @@ export default function Home() {
   return (
     <>
       <Container maxWidth={false}>
-        <Container maxWidth='sm' disableGutters>
+        <Container maxWidth='sm' disableGutters sx={{ paddingTop: '16px' }}>
+          {isWon && (
+            <Alert variant='filled' severity='success'>
+              You won
+            </Alert>
+          )}
+          {isLost && (
+            <Alert variant='filled' severity='error' sx={{ fontSize: 14 }}>
+              <Typography sx={{ fontSize: 16 }}>You lost</Typography>
+              Number was {lostState}
+            </Alert>
+          )}
+
           <Box
             textAlign='center'
             sx={{
               maxWidth: 300,
-              paddingTop: '37px',
+              paddingTop: '21px',
               marginLeft: 'auto',
               marginRight: 'auto',
               marginBottom: 7,
@@ -107,7 +123,7 @@ export default function Home() {
               {result}
             </Box>
             <FormControl sx={{ marginBottom: 5 }}>
-              <RadioGroup row name='threshold' onChange={handleCheck}>
+              <RadioGroup row name='threshold' onChange={handleCheck} defaultValue='under'>
                 <FormControlLabel
                   value='under'
                   control={<Radio color='secondary' />}
@@ -135,13 +151,17 @@ export default function Home() {
                 valueLabelDisplay='on'
               />
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant='body2' onClick={() => setRange(1)} sx={{ cursor: 'pointer' }}>
+                <Typography
+                  variant='body2'
+                  onClick={() => setRange(1)}
+                  sx={{ cursor: 'pointer', fontSize: 18 }}
+                >
                   0
                 </Typography>
                 <Typography
                   variant='body2'
                   onClick={() => setRange(100)}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ cursor: 'pointer', fontSize: 18 }}
                 >
                   100
                 </Typography>
@@ -157,30 +177,11 @@ export default function Home() {
               Play
             </Button>
           </Box>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ fontWeight: 'bold' }}>Time</TableCell>
-                  <TableCell sx={{ fontWeight: 'bold' }}>Guess</TableCell>
-                  <TableCell sx={{ fontWeight: 'bold' }}>Result</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell>{item.time}</TableCell>
-                    <TableCell>
-                      {item.radio} {item.range}
-                    </TableCell>
-                    <TableCell className={item.isOk ? styles.ok : styles.notOk}>
-                      {item.result}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          {data.length ? (
+            <ResultsTable data={data} />
+          ) : (
+            <Typography textAlign='center'>Start to Play</Typography>
+          )}
         </Container>
       </Container>
     </>
