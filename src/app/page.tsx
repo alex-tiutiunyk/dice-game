@@ -15,7 +15,7 @@ import {
   Slider,
   Typography,
 } from '@mui/material';
-import ResultsTable from '@/components/ResultsTable/ResultsTable';
+import ResultsTable from '@/components/ResultsTable';
 
 export default function Home() {
   const [result, setResult] = React.useState<number>(0);

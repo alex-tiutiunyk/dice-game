@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { IPlayData } from '@/interfaces';
-import styles from './ResultsTable.module.css';
 
 interface ResultsTableProps {
   data: IPlayData[];
@@ -25,7 +24,9 @@ const ResultsTable = ({ data }: ResultsTableProps) => {
               <TableCell>
                 {item.radio} {item.range}
               </TableCell>
-              <TableCell className={item.isOk ? styles.ok : styles.notOk}>{item.result}</TableCell>
+              <TableCell sx={item.isOk ? { color: 'green' } : { color: 'red' }}>
+                {item.result}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
