@@ -86,17 +86,20 @@ export default function Home() {
       <Container maxWidth={false}>
         <Container maxWidth='sm' disableGutters sx={{ paddingTop: '16px' }}>
           {isWon && (
-            <Alert variant='filled' severity='success'>
-              You won
-            </Alert>
+            <Box sx={{ minHeight: 72 }}>
+              <Alert variant='filled' severity='success'>
+                You won
+              </Alert>
+            </Box>
           )}
           {isLost && (
-            <Alert variant='filled' severity='error' sx={{ fontSize: 14 }}>
-              <Typography sx={{ fontSize: 16 }}>You lost</Typography>
-              Number was {lostState}
-            </Alert>
+            <Box sx={{ minHeight: 72 }}>
+              <Alert variant='filled' severity='error' sx={{ fontSize: 14 }}>
+                <Typography sx={{ fontSize: 16 }}>You lost</Typography>
+                Number was {lostState}
+              </Alert>
+            </Box>
           )}
-
           <Box
             textAlign='center'
             sx={{
