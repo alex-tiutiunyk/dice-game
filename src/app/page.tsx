@@ -38,9 +38,6 @@ export default function Home() {
     { value: 80 },
     { value: 100 },
   ];
-  function valuetext(value: number) {
-    return `${value}°C`;
-  }
 
   const startPlay = (): void => {
     const newNumber: number = Math.floor(Math.random() * 100 + 1);
@@ -145,7 +142,6 @@ export default function Home() {
                 max={100}
                 onChange={handleChange}
                 aria-label='Always visible'
-                getAriaValueText={valuetext}
                 marks={marks}
                 color='secondary'
                 valueLabelDisplay='on'
