@@ -11,7 +11,7 @@ const Alerts = ({ isWon, isLost, lostState }: AlertsProps) => {
   return (
     <>
       {isWon && (
-        <Box sx={{ minHeight: 72 }}>
+        <Box sx={{ minHeight: 76 }}>
           <Alert variant='filled' severity='success'>
             You won
           </Alert>
