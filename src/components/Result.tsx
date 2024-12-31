@@ -14,7 +14,7 @@ const Result = ({ result }: ResultProps) => {
         fontSize: 96,
         backgroundColor: 'rgba(var(--stb-black) / 0.04)',
         borderRadius: 1,
-        marginBottom: '14px',
+        marginBottom: 2,
       }}
     >
       {result}
