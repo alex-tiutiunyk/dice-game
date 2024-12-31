@@ -1,8 +1,12 @@
 import { Box, Slider, Typography } from '@mui/material';
 import React from 'react';
 
-const SliderComponent = () => {
-  const [range, setRange] = React.useState<number>(20);
+interface SliderComponentProps {
+  range: number;
+  setRange: (value: number) => void;
+}
+
+const SliderComponent = ({ range, setRange }: SliderComponentProps) => {
   const handleChange = (_: Event, newValue: number | number[]) => {
     setRange(newValue as number);
   };
@@ -14,9 +18,6 @@ const SliderComponent = () => {
     { value: 80 },
     { value: 100 },
   ];
-  function valuetext(value: number) {
-    return `${value}°C`;
-  }
 
   return (
     <>
@@ -27,16 +28,23 @@ const SliderComponent = () => {
           max={100}
           onChange={handleChange}
           aria-label='Always visible'
-          getAriaValueText={valuetext}
           marks={marks}
           color='secondary'
           valueLabelDisplay='on'
         />
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant='body2' onClick={() => setRange(1)} sx={{ cursor: 'pointer' }}>
+          <Typography
+            variant='body2'
+            onClick={() => setRange(1)}
+            sx={{ cursor: 'pointer', fontSize: 18 }}
+          >
             0
           </Typography>
-          <Typography variant='body2' onClick={() => setRange(100)} sx={{ cursor: 'pointer' }}>
+          <Typography
+            variant='body2'
+            onClick={() => setRange(100)}
+            sx={{ cursor: 'pointer', fontSize: 18 }}
+          >
             100
           </Typography>
         </Box>
@@ -45,4 +53,4 @@ const SliderComponent = () => {
   );
 };
 
-export default SliderComponent;
+export default React.memo(SliderComponent);

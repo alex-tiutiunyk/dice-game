@@ -35,4 +35,4 @@ const ResultsTable = ({ data }: ResultsTableProps) => {
   );
 };
 
-export default ResultsTable;
+export default React.memo(ResultsTable);
