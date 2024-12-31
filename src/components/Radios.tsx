@@ -11,8 +11,14 @@ const Radios = ({ setRadio }: RadiosProps) => {
   };
 
   return (
-    <FormControl sx={{ marginBottom: 5 }}>
-      <RadioGroup row name='threshold' onChange={handleCheck} defaultValue='under'>
+    <FormControl sx={{ marginBottom: '37px' }}>
+      <RadioGroup
+        row
+        name='threshold'
+        onChange={handleCheck}
+        defaultValue='under'
+        sx={{ gap: 10, paddingRight: '28px' }}
+      >
         <FormControlLabel
           value='under'
           control={<Radio color='secondary' />}

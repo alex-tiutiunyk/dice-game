@@ -67,11 +67,12 @@ export default function Home() {
           <Box
             textAlign='center'
             sx={{
-              maxWidth: 300,
+              maxWidth: 320,
               paddingTop: '21px',
               marginLeft: 'auto',
               marginRight: 'auto',
-              marginBottom: 7,
+              marginBottom: '17px',
+              fontWeight: 300,
             }}
           >
             <Result result={result} />

@@ -20,11 +20,17 @@ const ResultsTable = ({ data }: ResultsTableProps) => {
         <TableBody>
           {data.map((item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.time}</TableCell>
-              <TableCell>
+              <TableCell sx={{ padding: '6px 16px 5px' }}>{item.time}</TableCell>
+              <TableCell sx={{ padding: '6px 16px 5px' }}>
                 {item.radio} {item.range}
               </TableCell>
-              <TableCell sx={item.isOk ? { color: 'green' } : { color: 'red' }}>
+              <TableCell
+                sx={
+                  item.isOk
+                    ? { color: 'green', padding: '6px 16px 5px' }
+                    : { color: 'red', padding: '6px 16px 5px' }
+                }
+              >
                 {item.result}
               </TableCell>
             </TableRow>

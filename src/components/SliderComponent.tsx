@@ -21,7 +21,7 @@ const SliderComponent = ({ range, setRange }: SliderComponentProps) => {
 
   return (
     <>
-      <Box sx={{ marginBottom: 3 }}>
+      <Box sx={{ marginBottom: '14px' }}>
         <Slider
           value={range}
           min={1}
@@ -31,20 +31,13 @@ const SliderComponent = ({ range, setRange }: SliderComponentProps) => {
           marks={marks}
           color='secondary'
           valueLabelDisplay='on'
+          size='small'
         />
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography
-            variant='body2'
-            onClick={() => setRange(1)}
-            sx={{ cursor: 'pointer', fontSize: 18 }}
-          >
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingTop: '5px' }}>
+          <Typography variant='body2' onClick={() => setRange(1)} sx={{ cursor: 'pointer' }}>
             0
           </Typography>
-          <Typography
-            variant='body2'
-            onClick={() => setRange(100)}
-            sx={{ cursor: 'pointer', fontSize: 18 }}
-          >
+          <Typography variant='body2' onClick={() => setRange(100)} sx={{ cursor: 'pointer' }}>
             100
           </Typography>
         </Box>

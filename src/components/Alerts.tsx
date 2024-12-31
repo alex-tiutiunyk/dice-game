@@ -20,7 +20,7 @@ const Alerts = ({ isWon, isLost, lostState }: AlertsProps) => {
       {isLost && (
         <Box sx={{ minHeight: 72 }}>
           <Alert variant='filled' severity='error' sx={{ fontSize: 14 }}>
-            <Typography sx={{ fontSize: 16 }}>You lost</Typography>
+            <Typography sx={{ fontSize: 16, marginBottom: '4px' }}>You lost</Typography>
             Number was {lostState}
           </Alert>
         </Box>
